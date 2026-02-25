@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "title": "Archive.",
+    "topBar": "Junsung's personal archive — bookmarks, notes, and references.",
+    "description": "A collection of links and ideas.",
+    "owner": "Junsung",
+    "year": "2025"
+  },
+  "links": [
+    {
+      "category": "Project",
+      "title": "Multi-Agent Investment Decision System",
+      "description": "LLM 기반 멀티에이전트 투자 의사결정 시스템. 정성적 리서치 인사이트를 구조화된 투자 프로세스로 전환한다.",
+      "url": "https://github.com/junsung",
+      "tags": ["Python", "LLM", "Finance"]
+    },
+    {
+      "category": "Project",
+      "title": "Financial News RAG Pipeline",
+      "description": "한경 등 국내 금융 뉴스 크롤링 + ChromaDB 기반 RAG 검색 파이프라인.",
+      "url": "https://example.com",
+      "tags": ["ChromaDB", "RAG"]
+    },
+    {
+      "category": "Project",
+      "title": "Treasury Yield Analysis Dashboard",
+      "description": "미국채 수익률 곡선 분석 및 시각화. React + lightweight-charts 기반.",
+      "url": "https://example.com",
+      "tags": ["React", "Charts"]
+    },
+    {
+      "category": "Paper",
+      "title": "Attention Is All You Need",
+      "description": "Transformer 아키텍처 원본 논문. 현재 LLM 시스템의 근간이 되는 핵심 연구.",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "tags": ["Deep Learning", "NLP"]
+    },
+    {
+      "category": "Reference",
+      "title": "Anthropic API Documentation",
+      "description": "Claude API 공식 문서. Function calling, batch processing, streaming 레퍼런스.",
+      "url": "https://docs.anthropic.com",
+      "tags": ["API", "LLM"]
+    },
+    {
+      "category": "Tool",
+      "title": "TradingView",
+      "description": "차트 분석, 기술적 지표, 백테스팅. lightweight-charts 오픈소스도 활용 중.",
+      "url": "https://tradingview.com",
+      "tags": ["Charts", "Trading"]
+    }
+  ]
+}

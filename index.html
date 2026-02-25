@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archive.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Noto+Sans+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --text-secondary: #666666;
+      --text-muted: #999999;
+      --border: #e5e5e5;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .top-bar {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .nav {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Row item */
+    .row {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .row a {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      align-items: start;
+      padding: 28px 16px;
+      margin: 0 -16px;
+      border-radius: 4px;
+      transition: background 0.15s ease;
+    }
+
+    .row a:hover {
+      background: #fafafa;
+    }
+
+    .row a:hover h3 {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .row .category {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding-top: 3px;
+    }
+
+    .row-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+
+    .row-content p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .row-content .url-display {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .tag {
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--text-secondary);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+      padding: 32px 0 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+
+    footer p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .nav { padding: 20px; flex-direction: column; gap: 8px; align-items: flex-start; }
+      .container { padding: 0 20px; }
+      .row a { grid-template-columns: 1fr; gap: 4px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar" id="top-bar"></div>
+
+  <nav class="nav">
+    <div class="nav-logo" id="site-title"></div>
+    <div class="nav-desc" id="site-desc"></div>
+  </nav>
+
+  <div class="container">
+    <div id="list"></div>
+
+    <footer>
+      <div class="footer-logo" id="footer-title"></div>
+      <p id="footer-copy"></p>
+    </footer>
+  </div>
+
+  <script>
+    async function init() {
+      const { meta, links } = await fetch('links.json').then(r => r.json());
+
+      document.title = meta.title;
+      document.getElementById('top-bar').textContent = meta.topBar;
+      document.getElementById('site-title').textContent = meta.title;
+      document.getElementById('site-desc').textContent = meta.description;
+      document.getElementById('footer-title').textContent = meta.title;
+      document.getElementById('footer-copy').textContent =
+        `© ${meta.year} ${meta.owner}`;
+
+      const list = document.getElementById('list');
+      links.forEach((item, i) => {
+        const urlDisplay = item.url
+          .replace(/^https?:\/\//, '')
+          .replace(/\/$/, '');
+        const delay = (i * 0.05).toFixed(2);
+
+        const row = document.createElement('div');
+        row.className = 'row';
+        row.style.animation = `fadeIn 0.4s ease-out ${delay}s both`;
+
+        row.innerHTML = `
+          <a href="${item.url}" target="_blank" rel="noopener">
+            <div class="category">${item.category}</div>
+            <div class="row-content">
+              <h3>${item.title}</h3>
+              <p>${item.description}</p>
+              <div class="url-display">${urlDisplay}</div>
+              <div class="tags">
+                ${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+              </div>
+            </div>
+          </a>`;
+        list.appendChild(row);
+      });
+    }
+
+    init();
+  </script>
+
+</body>
+</html>
