@@ -15,9 +15,13 @@ __pycache__/
 .venv/
 venv/
 
+# Jekyll drafts
+_drafts/
+
 # Build output
 dist/
 .cache/
+_site/
 
 # Env
 .env
